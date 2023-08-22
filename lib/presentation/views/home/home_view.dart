@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_ui_flutter/config/constants/size_config.dart';
 import 'package:travel_ui_flutter/models/destination_model.dart';
 import 'package:travel_ui_flutter/models/hotel_model.dart';
+import 'package:travel_ui_flutter/presentation/views/detail/detail_screen.dart';
 import 'package:travel_ui_flutter/presentation/widgets/custom_title.dart';
 
 class HomeView extends StatelessWidget {
@@ -96,132 +97,144 @@ class _DestinationSection extends StatelessWidget {
             itemCount: destinations.length,
             itemBuilder: (context, index) {
               final destination = destinations[index];
-              return Padding(
-                padding: index == 0
-                    ? const EdgeInsets.only(right: 20, left: 20)
-                    : const EdgeInsets.only(right: 20),
-                child: SizedBox(
-                  width: SizeConfig.screenWidth * 0.6,
-                  child: Stack(
-                    alignment: Alignment.bottomLeft,
-                    children: [
-                      Container(
-                        width: SizeConfig.screenWidth * 0.6,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          // boxShadow: const [
-                          //   BoxShadow(
-                          //     offset: Offset(1, 2),
-                          //     spreadRadius: 3,
-                          //     blurRadius: 9,
-                          //     color: Colors.black26,
-                          //   ),
-                          // ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                destination.activities[0].type,
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          DetailScreen(destination: destination),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: index == 0
+                      ? const EdgeInsets.only(right: 20, left: 20)
+                      : const EdgeInsets.only(right: 20),
+                  child: SizedBox(
+                    width: SizeConfig.screenWidth * 0.6,
+                    child: Stack(
+                      alignment: Alignment.bottomLeft,
+                      children: [
+                        Container(
+                          width: SizeConfig.screenWidth * 0.6,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            // boxShadow: const [
+                            //   BoxShadow(
+                            //     offset: Offset(1, 2),
+                            //     spreadRadius: 3,
+                            //     blurRadius: 9,
+                            //     color: Colors.black26,
+                            //   ),
+                            // ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  destination.activities[0].type,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                destination.description,
-                                style: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 14,
-                                ),
-                              )
-                            ],
+                                const SizedBox(height: 10),
+                                Text(
+                                  destination.description,
+                                  style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 14,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(destination.imageUrl),
-                                  fit: BoxFit.cover,
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(destination.imageUrl),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      gradient: const LinearGradient(
-                                        colors: [
-                                          Colors.black45,
-                                          Colors.transparent
-                                        ],
-                                        begin: Alignment.bottomCenter,
-                                        end: Alignment.topCenter,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        gradient: const LinearGradient(
+                                          colors: [
+                                            Colors.black45,
+                                            Colors.transparent
+                                          ],
+                                          begin: Alignment.bottomCenter,
+                                          end: Alignment.topCenter,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 15,
-                                      vertical: 10,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          destination.city,
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.compass_calibration,
-                                              size: 10,
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 15,
+                                        vertical: 10,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            destination.city,
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              destination.country,
-                                              style: const TextStyle(
-                                                fontSize: 16,
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.compass_calibration,
+                                                size: 10,
                                                 color: Colors.white,
                                               ),
-                                            )
-                                          ],
-                                        )
-                                      ],
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                destination.country,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               );
