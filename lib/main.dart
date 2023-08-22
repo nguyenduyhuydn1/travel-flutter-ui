@@ -15,7 +15,7 @@ class MainApp extends StatelessWidget {
     SizeConfig().init(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      showPerformanceOverlay: true,
+      // showPerformanceOverlay: true,
       theme: ThemeData(
         primaryColor: const Color(0xFF3EBACE),
         scaffoldBackgroundColor: const Color(0xFFF3F5F7),
